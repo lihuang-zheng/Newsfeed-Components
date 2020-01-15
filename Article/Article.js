@@ -90,13 +90,27 @@ const data = [
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
+  // <div class="article">
+  //   <h2>{title of the article}</h2>
+  //   <p class="date">{date of the article}</p>
+
+  //   {three separate paragraph elements}
+
+  //   <span class='expandButton'></span>
+  // </div>
+
   <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
-
-    {three separate paragraph elements}
-
-    <span class='expandButton'></span>
+    <div class="article-bar">
+      <h2>Title of Article</h2>
+      <p class="date">{date of the article}</p>
+      <div class="article-buttons">
+        <button class="article-btn-open">&#9660</button>
+        <button class="article-btn-close hide-btn">Close</button>
+      </div>
+    </div>
+    <div class="article-content">
+      Content of article
+    </div>
   </div>
 
   Hint: You will need to use createElement more than once here!
@@ -112,3 +126,66 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+  // Define new elements
+  const article = document.createElement("div");
+  const articleBar = document.createElement("div");
+  const articleTitle = document.createElement("h2");
+  const articleDate = document.createElement("p");
+  const articleContent = document.createElement("div");
+  const articleFirstParagraph = document.createElement("p");
+  const articleSecondParagraph = document.createElement("p");
+  const articleThirdParagraph = document.createElement("p");
+  const articleButtonPanel = document.createElement("div");
+  const articleButtonOpen = document.createElement("button");
+  const articleButtonClose = document.createElement("button");
+  
+  // Setup structure of elements
+  article.append(articleBar);
+  article.append(articleContent);
+  articleContent.append(articleFirstParagraph);
+  articleContent.append(articleSecondParagraph);
+  articleContent.append(articleThirdParagraph);
+  articleBar.append(articleTitle);
+  articleBar.append(articleDate);
+  articleBar.append(articleButtonPanel);
+  articleButtonPanel.append(articleButtonOpen);
+  articleButtonPanel.append(articleButtonClose);
+
+  // Add classes to elements
+  article.classList.add("article");
+  articleBar.classList.add("article-bar");
+  articleDate.classList.add("article-date");
+  articleContent.classList.add("article-content");
+  articleButtonPanel.classList.add("article-buttons");
+  articleButtonOpen.classList.add("article-btn-open");
+  articleButtonClose.classList.add("article-btn-close", "hide-btn");
+
+  // Set texts content
+  articleButtonOpen.textContent = "\u25bc";
+  articleButtonClose.textContent = "\u25b2";
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleContent.textContent = firstParagraph;
+  
+  // Setup boutton event
+  articleButtonPanel.addEventListener('click', (event) => {
+    articleButtonOpen.classList.toggle("hide-btn")
+    articleButtonClose.classList.toggle("hide-btn")
+    articleContent.classList.toggle("toggle-on")
+  })
+
+  return article;
+}
+
+
+// Grab the parent element to append our data to
+const articles = document.querySelector(".articles")
+
+data.forEach(data => {
+  articles.append(createArticle(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+})
+
+
+// Stretch is about animations, we can use Greensock for animations.

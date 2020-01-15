@@ -1,50 +1,60 @@
 .articles {
-  margin-top: 95px;
+  background: white;
+  box-shadow:  1px 2.5px 5px grey;
+  max-width: 500px;
+  width: 100%;
+  margin: 4rem auto 4rem;
 }
+
 .article {
-  margin: 20px 10%;
-  padding: 0 20px 25px;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-  background-color: white;
-  position: relative;
-  height: 50px;
-  overflow: hidden;
-  box-shadow: 2px 2px 2px lightgrey;
+  color: #64656A;
+  padding: 30px;
+  border-top: 2px solid crimson;
+}
 
+.article:first-child {
+border-top: none;
+}
+
+.article:last-child {
+border-bottom: 2px solid crimson;
+}
+
+.article-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  
   h2 {
-    font-size: 28px;
-    padding: 0;
-    margin: 15px 0 0;
-  }
-
-  .date {
-    margin: 0;
-    font-size: 14px;
-  }
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  .expandButton {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    font-size: 12px;
-    color: grey;
-    cursor: pointer;
-    transform: translate(-50%);
-    background-color: white;
+    color: crimson;
+    font-size: 20px;
   }
 }
 
-.article-open {
-  height: 400px;
+.article-buttons button {
+  cursor: pointer;
+  background: lightpink;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
 }
 
+.hide-btn {
+  display: none;
+}
+
+.article-content {
+  display: none;
+  margin-top: 20px;
+  border: 1px solid red;
+  margin: 15px 0 0;
+}
+
+.toggle-on {
+  display: block;
+}
 
 
 
