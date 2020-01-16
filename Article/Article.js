@@ -198,3 +198,50 @@ data.forEach(data => {
 
 
 // Stretch is about animations, we can use Greensock for animations.
+// Catch h1
+const h1Style = document.querySelector("h1")
+
+// H1 style animation with greensock
+h1Style.addEventListener("mouseenter", () => {
+
+  gsap.to("h1",{
+    duration: 1,
+    rotationY: 180,
+    rotationX: 180,
+    opacity: 0.5,
+    ease: "bounce",
+  });
+})
+
+h1Style.addEventListener("mouseleave", () => {
+
+  gsap.to("h1",{
+    duration: 1,
+    rotationY: 0,
+    rotationX: 0,
+    opacity: 1,
+    ease: "bounce"
+  });
+})
+
+// Below are for articles panel animation
+articles.addEventListener("dblclick", () => {
+
+  gsap.to(".articles",{
+    duration: 1,
+    rotationY: 180,
+    opacity: 0.5,
+    ease: "bounce",
+  });
+})
+
+articles.addEventListener("click", () => {
+
+  gsap.to(".articles",{
+    duration: 1,
+    rotationY: 0,
+    opacity: 1,
+    ease: "bounce"
+  });
+})
+
