@@ -90,13 +90,29 @@ const data = [
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
+  // <div class="article">
+  //   <h2>{title of the article}</h2>
+  //   <p class="date">{date of the article}</p>
+
+  //   {three separate paragraph elements}
+
+  //   <span class='expandButton'></span>
+  // </div>
+
   <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
-
-    {three separate paragraph elements}
-
-    <span class='expandButton'></span>
+    <div class="article-bar">
+      <h2>Title of Article</h2>
+      <p class="date">{date of the article}</p>
+      <div class="article-buttons">
+        <button class="article-btn-open">&#9660</button>
+        <button class="article-btn-close hide-btn">Close</button>
+      </div>
+    </div>
+    <div class="article-content">
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
   </div>
 
   Hint: You will need to use createElement more than once here!
@@ -112,3 +128,120 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+  // Define new elements
+  const article = document.createElement("div");
+  const articleBar = document.createElement("div");
+  const articleTitle = document.createElement("h2");
+  const articleDate = document.createElement("h4");
+  const articleFirstParagraph = document.createElement("p");
+  const articleSecondParagraph = document.createElement("p");
+  const articleThirdParagraph = document.createElement("p");
+  const articleButtonPanel = document.createElement("div");
+  const articleButtonOpen = document.createElement("button");
+  const articleButtonClose = document.createElement("button");
+  
+  // Setup structure of elements
+  article.append(articleBar);
+  article.append(articleFirstParagraph);
+  article.append(articleSecondParagraph);
+  article.append(articleThirdParagraph);
+  articleBar.append(articleTitle);
+  articleBar.append(articleDate);
+  articleBar.append(articleButtonPanel);
+  articleButtonPanel.append(articleButtonOpen);
+  articleButtonPanel.append(articleButtonClose);
+
+
+  // Add classes to elements
+  article.classList.add("article");
+  articleBar.classList.add("article-bar");
+  articleDate.classList.add("article-date");
+  articleFirstParagraph.classList.add("article-paragraph");
+  articleSecondParagraph.classList.add("article-paragraph");
+  articleThirdParagraph.classList.add("article-paragraph");
+  articleButtonPanel.classList.add("article-buttons");
+  articleButtonOpen.classList.add("article-btn-open");
+  articleButtonClose.classList.add("article-btn-close", "hide-btn");
+
+
+  // Set texts content
+  articleButtonOpen.textContent = "\u25bc";
+  articleButtonClose.textContent = "\u25b2";
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleFirstParagraph.textContent = firstParagraph;
+  articleSecondParagraph.textContent = secondParagraph;
+  articleThirdParagraph.textContent = thirdParagraph;
+  
+
+  // Setup boutton event
+  articleButtonPanel.addEventListener('click', () => {
+    articleButtonOpen.classList.toggle("hide-btn")
+    articleButtonClose.classList.toggle("hide-btn")
+    articleFirstParagraph.classList.toggle("toggle-on")
+    articleSecondParagraph.classList.toggle("toggle-on")
+    articleThirdParagraph.classList.toggle("toggle-on")
+  })
+
+  return article;
+}
+
+
+// Grab the parent element to append our data to
+const articles = document.querySelector(".articles")
+
+data.forEach(data => {
+  articles.append(createArticle(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+})
+
+
+// Stretch is about animations, we can use Greensock for animations.
+// Catch h1
+const h1Style = document.querySelector("h1")
+
+// H1 style animation with greensock
+h1Style.addEventListener("mouseenter", () => {
+
+  gsap.to("h1",{
+    duration: 1,
+    rotationY: 180,
+    rotationX: 180,
+    opacity: 0.5,
+    ease: "bounce",
+  });
+})
+
+h1Style.addEventListener("mouseleave", () => {
+
+  gsap.to("h1",{
+    duration: 1,
+    rotationY: 0,
+    rotationX: 0,
+    opacity: 1,
+    ease: "bounce"
+  });
+})
+
+// Below are for articles panel animation
+articles.addEventListener("dblclick", () => {
+
+  gsap.to(".articles",{
+    duration: 1,
+    rotationY: 180,
+    opacity: 0.5,
+    ease: "bounce",
+  });
+})
+
+articles.addEventListener("click", () => {
+
+  gsap.to(".articles",{
+    duration: 1,
+    rotationY: 0,
+    opacity: 1,
+    ease: "bounce"
+  });
+})
+
